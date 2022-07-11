@@ -13,21 +13,18 @@ const { User } = require('../module/user')
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', async function (req, res) {
-    res.render('login', {title: "Login System"})
+    res.render('profile', { title: "Profile Page" })
 });
 
-
-router.get('/register', async function (req, res) {
-    res.render('register', {title: "Registation"})
-});
-
-router.post('/register', urlencodedParser, async function (req, res) {
+router.post('/', urlencodedParser, auth, async function (req, res) {
 
     const schema = Joi.object({
-        username: Joi.string().min(3).max(30).required(),
+        username: Joi.string().required(),
         email: Joi.string().min(3).max(255).required().email(),
-        password: Joi.string().min(3).max(255).required(),
-        isAdmin: Joi.boolean()
+        website: Joi.string(),
+        address: Joi.string(),
+        gender: Joi.string().valid('Male', 'Female', 'Other').required(),
+        mobile_no: Joi.string().min(6).max(16).required(),
     });
 
     try {
@@ -40,16 +37,10 @@ router.post('/register', urlencodedParser, async function (req, res) {
         return;
     }
 
-    let user = await User.findOne({ email: req.body.email });
-    if (user) return res.status(400).send('user already registered!..');
+    profile = new User(_.pick(req.body, ['username', 'email', 'website', 'address', 'mobile_no', 'gender']));
 
-    user = new User(_.pick(req.body, ['username', 'email', 'password', 'isAdmin']));
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt)
-
-    await user.save();
-    const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'username', 'email', 'isAdmin']));
+    await profile.save();
+    res.header('x-auth-token', token).send(_.pick(profile, ['username', 'email', 'website', 'address', 'mobile_no', 'gender']));
 
 });
 

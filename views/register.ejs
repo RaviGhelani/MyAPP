@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registation</title>
+    
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f8eded;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        .container {
+            width: auto;
+            padding: 20px;
+            max-width: 90%;
+            background: #fff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Register</h1>
+
+        <form method="post" action="/users/register">
+            <div class="form-group">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" name="username" id="username">
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+
+            <input type="submit" class="registatiopn-button" value="Register">
+
+        </form>
+
+    </div>
+</body>
+
+</html>

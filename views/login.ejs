@@ -1,21 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<%- include('head', { title: 'Authentication Example' }) -%>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogIn</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f8eded;
+      font-family: 'Roboto', sans-serif;
+    }
 
-<h1>Login</h1>
-<%- message %>
-Try accessing <a href="/restricted">/restricted</a>, then authenticate with "tj" and "foobar".
-<form method="post" action="/login">
-  <p>
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username">
-  </p>
-  <p>
-    <label for="password">Password:</label>
-    <input type="text" name="password" id="password">
-  </p>
-  <p>
-    <input type="submit" value="Login">
-  </p>
-</form>
+    h1 {
+      color: blue;
+    }
 
-<%- include('foot') -%>
+    .container {
+      width: auto;
+      padding: 20px;
+      max-width: 90%;
+      background: #fff;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>LogIn</h1>
+
+      <form method="post" action="api/auth/logIn">
+          <div class="form-group">
+              <label for="email" class="form-label">Email:</label>
+              <input type="email" class="form-control" name="email" id="email">
+          </div>
+          <div class="form-group">
+              <label for="password" class="form-label">Password:</label>
+              <input type="password" class="form-control" name="password" id="password">
+          </div>
+
+          <input type="submit" class="LogIn-button" value="LogIn">
+
+      </form>
+
+  <br>
+    <a href="/users/register"> Register </a>
+  </div>
+</body>
+
+</html>

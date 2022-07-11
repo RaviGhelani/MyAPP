@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f8eded;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        .form{
+            width: 500px;
+            padding: 20px;
+            max-width: 90%;
+            align-items: center;
+            background: rgb(213, 240, 241);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .container {
+            width: 800px;
+            height: 450px;
+            padding: 20px;
+            max-width: 90%;
+            align-items: center;
+            background: rgb(230, 238, 240);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1> Set Profile</h1>
+
+        <form class="form" method="post" action="/profiles">
+            <div class="form-group">
+                <label for="avatar" class="form-label">Avatar:</label>
+                <input id="avatar" class="form-control" type="file" name="avatar" >
+                <!-- <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img src="https://i.imgur.com/0eg0aG0.jpg" width="90">
+                    <span>JohnDoe</span>
+                    <span>john_doe12@bbb.com</span>
+                    <span>USA</span>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <label for="username" class="form-label">UserName:</label>
+                <input type="text" class="form-control" name="username" id="username">
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="mobile_no" class="form-label">Mobile_no:</label>
+                <input type="text" class="form-control" name="mobile_no" id="mobile_no">
+            </div>
+            <div class="form-group">
+                <label for="gender" class="form-label">Gender:</label>
+                <input type="radio" name="gender" value="Male"> Male &nbsp; &nbsp;
+                <input type="radio" name="gender" value="Female"> Female &nbsp; &nbsp;
+                <input type="radio" name="gender" value="Other"> Other
+            </div>
+            <div class="form-group">
+                <label for="address" class="form-label">Address:</label>
+                <textarea name="address" id="address" rows="6" cols="20">Enter address here...</textarea>
+            </div>
+            <div class="form-group">
+                <label for="website" class="form-label">WebSite:</label>
+                <input type="text" class="form-control" name="website" id="website">
+            </div>
+
+            <input type="submit" class="ProfileSubmit-button" value="Submit">
+
+        </form>
+
+    </div>
+</body>
+
+</html>
