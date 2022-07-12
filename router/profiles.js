@@ -20,7 +20,7 @@ router.get('/', async function (req, res) {
     res.render('profile', { title: "Profile Page" })
 });
 
-router.post('/', urlencodedParser, async function (req, res) {
+router.post('/', urlencodedParser, auth, async function (req, res) {
 
     const schema = Joi.object({
         username: Joi.string().required(),
