@@ -12,11 +12,15 @@ const { User } = require('../module/user')
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+router.get('/editProfile', async function (req, res) {
+    res.render('editProfile', { title: "Edit Profile Page" })
+});
+
 router.get('/', async function (req, res) {
     res.render('profile', { title: "Profile Page" })
 });
 
-router.post('/', urlencodedParser, auth, async function (req, res) {
+router.post('/', urlencodedParser, async function (req, res) {
 
     const schema = Joi.object({
         username: Joi.string().required(),
