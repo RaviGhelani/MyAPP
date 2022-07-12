@@ -12,6 +12,16 @@ app.use('/api/users', users)
 app.use('/api/home', home)
 app.use('/api/profiles', profile)
 
+const http = require('http').createServer(app)
+
+const io = require('socket.io')(http)
+
+io.on('connection', (socket) => {
+    console.log('Connected...')
+    socket.on('message', (msg) => {
+        socket.broadcast.emit('message', msg)
+    })
+})
 
 mongoose.connect('mongodb://localhost/MyAPP')
     .then(() => console.log('Connected To MongoDB...'))

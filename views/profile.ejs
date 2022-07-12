@@ -63,36 +63,64 @@
             </div> -->
             <div class="form-group">
                 <label for="username" class="form-label">UserName:</label>
-                <input type="text" class="form-control" name="username" id="username">
+                <!-- <input type="text" class="form-control" name="username" id="username"> -->
             </div>
             <div class="form-group">
                 <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" name="email" id="email">
+                <!-- <input type="email" class="form-control" name="email" id="email"> -->
             </div>
             <div class="form-group">
                 <label for="mobile_no" class="form-label">Mobile_no:</label>
-                <input type="text" class="form-control" name="mobile_no" id="mobile_no">
+                <!-- <input type="text" class="form-control" name="mobile_no" id="mobile_no"> -->
             </div>
             <div class="form-group">
                 <label for="gender" class="form-label">Gender:</label>
-                <input type="radio" name="gender" value="Male"> Male &nbsp; &nbsp;
+                <!-- <input type="radio" name="gender" value="Male"> Male &nbsp; &nbsp;
                 <input type="radio" name="gender" value="Female"> Female &nbsp; &nbsp;
-                <input type="radio" name="gender" value="Other"> Other
+                <input type="radio" name="gender" value="Other"> Other -->
             </div>
             <div class="form-group">
                 <label for="address" class="form-label">Address:</label>
-                <textarea name="address" id="address" rows="6" cols="20">Enter address here...</textarea>
+                <!-- <textarea name="address" id="address" rows="6" cols="20">Enter address here...</textarea> -->
             </div>
             <div class="form-group">
                 <label for="website" class="form-label">WebSite:</label>
-                <input type="text" class="form-control" name="website" id="website">
+                <!-- <input type="text" class="form-control" name="website" id="website"> -->
             </div>
 
-            <input type="submit" class="ProfileSubmit-button" value="Submit">
+            <!-- <input type="submit" class="ProfileSubmit-button" value="Submit"> -->
 
         </form>
-
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script type="text/javascript">
+    var frm = $('#logInForm');
+
+    frm.submit(function (e) {
+      console.log("form submitted")
+      e.preventDefault();
+      let formData = frm.serialize();
+      console.log(formData)
+      $.ajax({
+        type: 'post',
+        url: '/api/users/logIn',
+        data: frm.serialize(),
+        success: function (data) {
+          console.log('Submission was successful.');
+          console.log(data);
+          window.location= "/api/home"
+        },
+        error: function (data) {
+          console.log('An error occurred.');
+          console.log(data);
+        },
+      });
+    });
+  </script>
+
+  
 </body>
 
 </html>
