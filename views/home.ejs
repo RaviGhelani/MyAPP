@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogIn</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f8eded;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    h1 {
+      color: blue;
+    }
+
+    .container {
+      width: auto;
+      padding: 20px;
+      max-width: 90%;
+      background: #fff;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Home Page</h1>
+
+    <header id="myheader"> </header>
+
+    <form id="logInForm">
+      <div class="form-group">
+        
+      </div>
+      <div class="form-group">
+       
+      </div>
+
+    
+
+    </form>
+
+    <br>
+    <!-- <a href="/api/users/register"> Register </a> -->
+  </div>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script type="text/javascript">
+    var frm = $('#logInForm');
+
+    frm.submit(function (e) {
+      console.log("form submitted")
+      e.preventDefault();
+      let formData = frm.serialize();
+      console.log(formData)
+      $.ajax({
+        type: 'post',
+        url: '/api/users/logIn',
+        data: frm.serialize(),
+        success: function (data) {
+          console.log('Submission was successful.');
+          console.log(data);
+          window.location= "/api/users/register"
+        },
+        error: function (data) {
+          console.log('An error occurred.');
+          console.log(data);
+        },
+      });
+    });
+  </script> -->
+</body>
+
+</html>

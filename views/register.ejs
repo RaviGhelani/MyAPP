@@ -69,11 +69,11 @@
                 console.log(formData)
                 $.ajax({
                     type: 'post',
-                    url: frm.attr('/users/register'),
+                    url: frm.attr('/api/users/register'),
                     data: frm.serialize(),
                     success: function (data) {
                         console.log('Submission was successful.');
-                        
+                        localStorage.setItem("x-auth-token", data.token);
                         console.log(data);
                     },
                     error: function (data) {

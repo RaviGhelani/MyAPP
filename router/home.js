@@ -32,10 +32,10 @@ router.post('/logIn', urlencodedParser, async function (req, res) {
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if (!validPassword) return res.status(400).send('Invalid password!..');
 
-    const token = user.generateAuthToken();
+    console.log('Successfullu Login...!')
 
-    res.send(token);
-    // localStorage.setItem("x-auth-token", token);
+    // const token = user.generateAuthToken();
+    // res.send(token);
 });
 
 

@@ -52,6 +52,36 @@ router.post('/register', urlencodedParser, async function (req, res) {
     let userResponse = _.pick(user, ['_id', 'username', 'email', 'isAdmin']);
     userResponse["token"] = token;
     res.header('x-auth-token', token).send(userResponse);
+});
+
+router.post('/logIn', urlencodedParser, async function (req, res) {
+
+    console.log(req.body.email)
+
+    const schema = Joi.object({
+        email: Joi.string().min(3).max(255).required().email(),
+        password: Joi.string().min(3).max(255).required(),
+    });
+
+    try {
+        const value = await schema.validateAsync(req.body);
+        console.log("value", value)
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(500).send(err.details[0].message);
+        return;
+    }
+
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) return res.status(400).send('Invalid email!..');
+
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    if (!validPassword) return res.status(400).send('Invalid password!..');
+
+    res.send(user);
+
+    console.log('Successfullu Login...!')
 
 });
 

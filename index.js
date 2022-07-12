@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const users = require('./router/users')
-const auth = require('./router/auth')
+const auth = require('./router/home')
 const profile = require('./router/profiles')
 
 const express = require('express')
@@ -8,9 +8,9 @@ const app = express();
 app.use(express.json());
 
 app.set('view engine', 'ejs')
-app.use('/users', users)
+app.use('/api/users', users)
 app.use('/api/auth', auth)
-app.use('/profiles', profile)
+app.use('/api/profiles', profile)
 
 
 mongoose.connect('mongodb://localhost/MyAPP')
