@@ -8,7 +8,7 @@
     <title>LogIn</title>
     <style>
         .parent {
-            width: 1000px;
+            width: all;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -66,42 +66,30 @@
             <div class="child">
                 <ul id="ulists">
                     <li id="lists"> <a href="/api/home"> Home </a> </li> <br>
-                    <li id="lists"> <a href="/api/home"> Globle Chat </a> </li> <br>
-                    <li id="lists"> <a href="/api/profiles"> Profile </a> </li> <br>
+                    <li id="lists"> <a id="chat"> Globle Chat </a> </li> <br>
+                    <li id="lists"> <a id="profile"> Profile </a> </li> <br>
                     <li id="lists"> <a href="/api/users"> LogOut </a> </li> <br>
                 </ul>
             </div>
-            <div class="child content">This is Home Page</div>
+            <div class="child content" id="content">This is Home Page</div>
         </div>
         <div class="child"></div>
     </div>
 
-    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-  <script type="text/javascript">
-    var frm = $('#logInForm');
-
-    frm.submit(function (e) {
-      console.log("form submitted")
-      e.preventDefault();
-      let formData = frm.serialize();
-      console.log(formData)
-      $.ajax({
-        type: 'post',
-        url: '/api/users/logIn',
-        data: frm.serialize(),
-        success: function (data) {
-          console.log('Submission was successful.');
-          console.log(data);
-          window.location= "/api/users/register"
-        },
-        error: function (data) {
-          console.log('An error occurred.');
-          console.log(data);
-        },
-      });
-    });
-  </script> -->
+    <script>
+        $(document).ready(function(){
+            $("#profile").click(function(){
+                $("#content").load("/api/profiles");
+            });
+            $("#chat").click(function(){
+                $("#content").load("/api/profiles");
+            });
+        });
+        </script>
+ 
+ 
 </body>
 
 </html>
