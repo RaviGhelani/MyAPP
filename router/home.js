@@ -7,35 +7,8 @@ const { User } = require('../module/user')
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.post('/logIn', urlencodedParser, async function (req, res) {
-
-    console.log(req.body.email)
-
-    const schema = Joi.object({
-        email: Joi.string().min(3).max(255).required().email(),
-        password: Joi.string().min(3).max(255).required(),
-    });
-
-    try {
-        const value = await schema.validateAsync(req.body);
-        console.log("value", value)
-    }
-    catch (err) {
-        console.log("err", err)
-        res.status(500).send(err.details[0].message);
-        return;
-    }
-
-    let user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(400).send('Invalid email!..');
-
-    const validPassword = await bcrypt.compare(req.body.password, user.password)
-    if (!validPassword) return res.status(400).send('Invalid password!..');
-
-    console.log('Successfullu Login...!')
-
-    // const token = user.generateAuthToken();
-    // res.send(token);
+router.get('/', urlencodedParser, async function (req, res) {
+    res.render('home', { title: "Home Page" })
 });
 
 

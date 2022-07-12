@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const users = require('./router/users')
-const auth = require('./router/home')
+const home = require('./router/home')
 const profile = require('./router/profiles')
 
 const express = require('express')
@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.set('view engine', 'ejs')
 app.use('/api/users', users)
-app.use('/api/auth', auth)
+app.use('/api/home', home)
 app.use('/api/profiles', profile)
 
 
