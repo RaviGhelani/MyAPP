@@ -35,7 +35,7 @@ router.post('/logIn', urlencodedParser, async function (req, res) {
     const token = user.generateAuthToken();
 
     res.send(token);
-    localStorage.setItem("x-auth-token", token);
+    // localStorage.setItem("x-auth-token", token);
 });
 
 

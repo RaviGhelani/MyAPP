@@ -13,12 +13,12 @@ const { User } = require('../module/user')
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', async function (req, res) {
-    res.render('login', {title: "Login System"})
+    res.render('login', { title: "Login System" })
 });
 
 
 router.get('/register', async function (req, res) {
-    res.render('register', {title: "Registation"})
+    res.render('register', { title: "Registation" })
 });
 
 router.post('/register', urlencodedParser, async function (req, res) {
@@ -49,7 +49,9 @@ router.post('/register', urlencodedParser, async function (req, res) {
 
     await user.save();
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'username', 'email', 'isAdmin']));
+    let userResponse = _.pick(user, ['_id', 'username', 'email', 'isAdmin']);
+    userResponse["token"] = token;
+    res.header('x-auth-token', token).send(userResponse);
 
 });
 

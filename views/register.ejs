@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registation</title>
-    
+
     <style>
         body {
             display: flex;
@@ -39,7 +39,7 @@
     <div class="container">
         <h1>Register</h1>
 
-        <form method="post" action="/users/register">
+        <form id="MyForm">
             <div class="form-group">
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" name="username" id="username">
@@ -53,9 +53,36 @@
                 <input type="password" class="form-control" name="password" id="password">
             </div>
 
-            <input type="submit" class="registatiopn-button" value="Register">
+            <input type="submit" id="register" class="registatiopn-button" value="Register">
 
         </form>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+        <script type="text/javascript">
+            var frm = $('#MyForm');
+        
+            frm.submit(function (e) {
+                console.log("form submitted")
+                e.preventDefault();
+                let formData= frm.serialize();
+                console.log(formData)
+                $.ajax({
+                    type: 'post',
+                    url: frm.attr('/users/register'),
+                    data: frm.serialize(),
+                    success: function (data) {
+                        console.log('Submission was successful.');
+                        
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log('An error occurred.');
+                        console.log(data);
+                    },
+                });
+            });
+        </script>
 
     </div>
 </body>
