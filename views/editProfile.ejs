@@ -88,6 +88,7 @@
 
     <script type="text/javascript">
         var frm = $('#profileform');
+        token = localStorage["x-auth-token"]
 
         frm.submit(function (e) {
             console.log("form submitted")
@@ -95,8 +96,8 @@
             let formData = frm.serialize();
             console.log(formData)
             $.ajax({
-                type: 'post',
-                url: '/api/profiles',
+                type: 'put',
+                url: `/api/profiles?token=${token}`,
                 data: frm.serialize(),
                 success: function (data) {
                     if ("x-auth-token" in localStorage) {

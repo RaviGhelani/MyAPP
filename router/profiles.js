@@ -1,6 +1,6 @@
 const auth = require('../middleware/auth')
 const queryAuth = require('../middleware/queryAuth')
-
+const admin = require('../middleware/admin')
 const express = require('express')
 const _ = require('lodash')
 const bodyParser = require('body-parser')
@@ -16,6 +16,10 @@ router.get('/editProfile', async function (req, res) {
     res.render('editProfile', { title: "Edit Profile Page" })
 });
 
+router.get('/addProfile', async function (req, res) {
+    res.render('addProfile', { title: "ADD Profile Page" })
+});
+
 router.get('/', queryAuth, async function (req, res) {
 
     let userId = req.user._id;
@@ -29,7 +33,7 @@ router.get('/me', urlencodedParser, auth, async function (req, res) {
     // res.send(user);
 });
 
-router.post('/', urlencodedParser, async function (req, res) {
+router.post('/', urlencodedParser, queryAuth, async function (req, res) {
 
     const schema = Joi.object({
         username: Joi.string(),
@@ -50,10 +54,8 @@ router.post('/', urlencodedParser, async function (req, res) {
         return;
     }
 
-    console.log(req.user._id)
-
     let profile = await Profile.findOne({ userId: req.user._id });
-    if (!profile) return res.status(400).send('already have profile... go to update if you want to change anything...!');
+    if (profile) return res.status(400).send('already have profile... go to update if you want to change anything...!');
 
     profile = new Profile({
         username: req.body.username,
@@ -72,54 +74,58 @@ router.post('/', urlencodedParser, async function (req, res) {
 });
 
 
-// router.put('/me', auth, async function (req, res) {
+router.put('/', queryAuth, async function (req, res) {
 
-//     const schema = Joi.object({
-//         name: Joi.string().min(3).max(30).required(),
-//         email: Joi.string().min(3).max(255).required().email(),
-//         password: Joi.string().min(3).max(255).required(),
-//     });
+    const schema = Joi.object({
+        username: Joi.string(),
+        email: Joi.string().min(3).max(255).email(),
+        website: Joi.string(),
+        address: Joi.string(),
+        gender: Joi.string().valid('Male', 'Female', 'Other'),
+        mobile_no: Joi.string().min(6).max(16),
+    });
 
-//     try {
-//         const value = await schema.validateAsync(req.body);
-//         console.log("value", value)
-//     }
-//     catch (err) {
-//         console.log("err", err)
-//         res.status(500).send(err.details[0].message);
-//         return;
-//     }
+    try {
+        const value = await schema.validateAsync(req.body);
+        console.log("value", value)
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(500).send(err.details[0].message);
+        return;
+    }
 
-//     console.log(req.body._id)
+    let profile = await Profile.findOne({ userId: req.user._id });
+    if (!profile) return res.status(400).send('First you have to Add profile..!');
 
-//     let user = await User.findOne({ _id: req.user._id });
-//     if (!user) return res.status(400).send('user not found..!');
+    console.log(profile)
 
-//     console.log(req.user._id)
+    profile = await Profile.findByIdAndUpdate( req.user._id, {
+        username: req.body.username,
+        email: req.body.email,
+        website: req.body.website,
+        address: req.body.address,
+        mobile_no: req.body.mobile_no,
+        gender: req.body.gender,
+    }, { new: true });
 
-//     user = await User.findByIdAndUpdate(req.user._id, {
-//         name: req.body.name,
-//         email: req.body.email,
-//         password: req.body.password,
-//     }, { new: true });
+    console.log(profile)
 
-//     const salt = await bcrypt.genSalt(10);
-//     user.password = await bcrypt.hash(user.password, salt)
+    await profile.save();
+    res.send(profile);
 
-//     await user.save();
-//     const token = user.generateAuthToken();
-//     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
-// });
+    console.log(profile);
+});
 
-// router.delete('/:id', [auth, admin], async function (req, res) {
-//     const user = await User.findByIdAndRemove(req.params.id);
+router.delete('/:id', [auth, admin], async function (req, res) {
+    const user = await User.findByIdAndRemove(req.params.id);
 
-//     if (!user) {
-//         res.status(404).send("user not avalable");
-//     }
+    if (!user) {
+        res.status(404).send("user not avalable");
+    }
 
-//     res.send(user);
-// });
+    res.send(user);
+});
 
 
 module.exports = router;
