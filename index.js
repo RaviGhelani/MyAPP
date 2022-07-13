@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.set('view engine', 'ejs')
 app.use('/api/users', users)
-app.use('/api/home', home)
+app.use('/', home)
 app.use('/api/profiles', profile)
 
 const http = require('http').createServer(app)

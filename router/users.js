@@ -12,7 +12,7 @@ const { User } = require('../module/user')
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.get('/', async function (req, res) {
+router.get('/logIn', async function (req, res) {
     res.render('login', { title: "Login System" })
 });
 
@@ -48,10 +48,8 @@ router.post('/register', urlencodedParser, async function (req, res) {
     user.password = await bcrypt.hash(user.password, salt)
 
     await user.save();
-    const token = user.generateAuthToken();
     let userResponse = _.pick(user, ['_id', 'username', 'email', 'isAdmin']);
-    userResponse["token"] = token;
-    res.header('x-auth-token', token).send(userResponse);
+    res.send(userResponse);
 });
 
 router.post('/logIn', urlencodedParser, async function (req, res) {
@@ -79,7 +77,11 @@ router.post('/logIn', urlencodedParser, async function (req, res) {
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if (!validPassword) return res.status(400).send('Invalid password!..');
 
-    res.send(user);
+    const token = user.generateAuthToken();
+
+    let userResponse = _.pick(user, ['_id', 'username', 'email', 'isAdmin']);
+    userResponse["token"] = token;
+    res.header('x-auth-token', token).send(userResponse);
 
     console.log('Successfullu Login...!')
 

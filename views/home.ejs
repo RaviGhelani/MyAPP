@@ -46,12 +46,14 @@
             background-color: #f8eded;
             font-family: 'Roboto', sans-serif;
         }
-        .lists{
+
+        .lists {
             padding: 10px;
             color: red;
             margin: 10px;
         }
-        .ulists{
+
+        .ulists {
             padding: 10px;
         }
     </style>
@@ -65,10 +67,10 @@
         <div class="main">
             <div class="child">
                 <ul id="ulists">
-                    <li id="lists"> <a href="/api/home"> Home </a> </li> <br>
+                    <li id="lists"> <a href="/"> Home </a> </li> <br>
                     <li id="lists"> <a id="chat"> Globle Chat </a> </li> <br>
                     <li id="lists"> <a id="profile"> Profile </a> </li> <br>
-                    <li id="lists"> <a href="/api/users"> LogOut </a> </li> <br>
+                    <li id="lists"> <a id="logOut"> LogOut </a> </li> <br>
                 </ul>
             </div>
             <div class="child content" id="content">This is Home Page</div>
@@ -79,18 +81,29 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <script>
-        
-        $(document).ready(function(){
-            $("#profile").click(function(){
+
+        if ("x-auth-token" in localStorage) {
+            console.log('User already logIn!')
+        } else {
+            alert('you have to login first...!');
+            window.location = "/api/users/logIn"
+        }
+
+        $(document).ready(function () {
+            $("#profile").click(function () {
                 $("#content").load("/api/profiles");
             });
-            $("#chat").click(function(){
+            $("#chat").click(function () {
                 $("#content").load("/api/profiles");
+            });
+            $("#logOut").click(function () {
+                window.location = "/api/users/logIn";
+                window.localStorage.removeItem("x-auth-token");
             });
         });
-        </script>
- 
- 
+    </script>
+
+
 </body>
 
 </html>
