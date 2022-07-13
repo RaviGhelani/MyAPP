@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const { userSchema, User } = require('./user');
+// const { userSchema, User } = require('./user');
 
 const profileSchema = new mongoose.Schema({
-
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     username: {
         type: String,
         required: true,
@@ -19,13 +22,11 @@ const profileSchema = new mongoose.Schema({
     gender: {
         type: String,
         enum: ['Male', 'Female', 'Other'],
-        required: true
     },
     mobile_no: {
         type: String,
         minlength: 6,
         maxlength: 16,
-        required: true
     },
     address: {
         type: String,

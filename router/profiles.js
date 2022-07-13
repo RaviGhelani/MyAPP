@@ -1,13 +1,13 @@
 const auth = require('../middleware/auth')
-const admin = require('../middleware/admin')
-const bcrypt = require('bcrypt')
+const queryAuth = require('../middleware/queryAuth')
+
 const express = require('express')
 const _ = require('lodash')
 const bodyParser = require('body-parser')
 const router = express.Router();
 const Joi = require('joi')
+const { Profile } = require('../module/profile')
 const { User } = require('../module/user')
-
 
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -16,14 +16,23 @@ router.get('/editProfile', async function (req, res) {
     res.render('editProfile', { title: "Edit Profile Page" })
 });
 
-router.get('/', async function (req, res) {
+router.get('/', queryAuth, async function (req, res) {
+
+    let userId = req.user._id;
+    console.log("userId::::::", userId)
+
     res.render('profile', { title: "Profile Page" })
 });
 
-router.post('/', urlencodedParser, auth, async function (req, res) {
+router.get('/me', urlencodedParser, auth, async function (req, res) {
+    // const user = await Profile.find({ userId: req.user._id });
+    // res.send(user);
+});
+
+router.post('/', urlencodedParser, async function (req, res) {
 
     const schema = Joi.object({
-        username: Joi.string().required(),
+        username: Joi.string(),
         email: Joi.string().min(3).max(255).required().email(),
         website: Joi.string(),
         address: Joi.string(),
@@ -41,10 +50,24 @@ router.post('/', urlencodedParser, auth, async function (req, res) {
         return;
     }
 
-    profile = new User(_.pick(req.body, ['username', 'email', 'website', 'address', 'mobile_no', 'gender']));
+    console.log(req.user._id)
 
+    let profile = await Profile.findOne({ userId: req.user._id });
+    if (!profile) return res.status(400).send('already have profile... go to update if you want to change anything...!');
+
+    profile = new Profile({
+        username: req.body.username,
+        email: req.body.email,
+        website: req.body.website,
+        address: req.body.address,
+        mobile_no: req.body.mobile_no,
+        gender: req.body.gender,
+        userId: req.user._id,
+    });
     await profile.save();
-    res.header('x-auth-token', token).send(_.pick(profile, ['username', 'email', 'website', 'address', 'mobile_no', 'gender']));
+    res.send(profile);
+
+    console.log(profile);
 
 });
 

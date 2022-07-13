@@ -50,55 +50,51 @@
     <div class="container">
         <h1> Set Profile</h1>
 
-        <form class="form" method="post" action="/profiles">
+        <form class="form" id="profileForm">
 
             <div class="form-group">
-                <label for="username" class="form-label">UserName:</label>
+                <label for="username" class="form-label">UserName: <p id="username"> </p></label>
+                
 
             </div>
             <div class="form-group">
-                <label for="email" class="form-label">Email:</label>
-
+                <label for="email" class="form-label">Email: <p id="email"> </p></label>
+                
             </div>
             <div class="form-group">
-                <label for="mobile_no" class="form-label">Mobile_no:</label>
-
+                <label for="mobile_no" class="form-label">Mobile_no: <p id="mobile_no"> </p></label>
+                
             </div>
             <div class="form-group">
-                <label for="gender" class="form-label">Gender:</label>
-
+                <label for="gender" class="form-label">Gender: <p id="gender"> </p></label>
+                
             </div>
             <div class="form-group">
-                <label for="address" class="form-label">Address:</label>
-
+                <label for="address" class="form-label">Address: <p id="address"> </p></label>
+                
             </div>
             <div class="form-group">
-                <label for="website" class="form-label">WebSite:</label>
-
+                <label for="website" class="form-label">WebSite: <p id="website"> </p></label>
+                
             </div>
         </form>
         <br>
-        <a href="/api/profiles/editProfile"> Edit Profile </a>
+        <a href="/api/profiles/editProfile"> Add Profile </a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <script type="text/javascript">
-        var frm = $('#logInForm');
+        var frm = $('#profileForm');
 
         frm.submit(function (e) {
-            console.log("form submitted")
             e.preventDefault();
-            let formData = frm.serialize();
-            console.log(formData)
             $.ajax({
                 type: 'get',
-                url: '/api/users/logIn',
+                url: '/api/users/profiles/me',
                 data: frm.serialize(),
                 success: function (data) {
-                    console.log('Submission was successful.');
                     console.log(data);
-                    window.location = "/api/home"
                 },
                 error: function (data) {
                     console.log('An error occurred.');
@@ -107,7 +103,6 @@
             });
         });
     </script>
-
 
 </body>
 

@@ -21,7 +21,7 @@
             color: blue;
         }
 
-        .form{
+        .form {
             width: 500px;
             padding: 20px;
             max-width: 90%;
@@ -51,7 +51,7 @@
         <h1> Set Profile</h1>
 
         <form class="form" id="profileform">
-    
+
             <div class="form-group">
                 <label for="username" class="form-label">UserName:</label>
                 <input type="text" class="form-control" name="username" id="username">
@@ -86,30 +86,35 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-  <script type="text/javascript">
-    var frm = $('#profileform');
+    <script type="text/javascript">
+        var frm = $('#profileform');
 
-    frm.submit(function (e) {
-      console.log("form submitted")
-      e.preventDefault();
-      let formData = frm.serialize();
-      console.log(formData)
-      $.ajax({
-        type: 'post',
-        url: '/api/profiles',
-        data: frm.serialize(),
-        success: function (data) {
-          console.log('Submission was successful.');
-          console.log(data);
-          window.location= "/api/home"
-        },
-        error: function (data) {
-          console.log('An error occurred.');
-          console.log(data);
-        },
-      });
-    });
-  </script>
+        frm.submit(function (e) {
+            console.log("form submitted")
+            e.preventDefault();
+            let formData = frm.serialize();
+            console.log(formData)
+            $.ajax({
+                type: 'post',
+                url: '/api/profiles',
+                data: frm.serialize(),
+                success: function (data) {
+                    if ("x-auth-token" in localStorage) {
+                        console.log('Submission was successful.');
+                        console.log(data);
+                        window.location = "/"
+                    } else {
+                        alert('Not valid user...!');
+                        window.location = "/api/users/logIn"
+                    }
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+        });
+    </script>
 
 
 </body>
