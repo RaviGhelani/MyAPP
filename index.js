@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
+const ejs = require('ejs')
 const users = require('./router/users')
 const home = require('./router/home')
 const profile = require('./router/profiles')
+const chat = require('./router/globleChat')
 
 const express = require('express')
 const app = express();
@@ -11,6 +13,7 @@ app.set('view engine', 'ejs')
 app.use('/api/users', users)
 app.use('/', home)
 app.use('/api/profiles', profile)
+app.use('/api/chats', chat)
 
 const http = require('http').createServer(app)
 

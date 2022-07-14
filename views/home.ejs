@@ -95,7 +95,7 @@
                 $("#content").load(`/api/profiles?token=${token}`);
             });
             $("#chat").click(function () {
-                $("#content").load("/api/profiles");
+                $("#content").load(`/api/chats?token=${token}`);
             });
             $("#logOut").click(function () {
                 window.location = "/api/users/logIn";
