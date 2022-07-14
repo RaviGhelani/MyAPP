@@ -71,6 +71,7 @@
         url: '/api/users/logIn',
         data: frm.serialize(),
         success: function (data) {
+          
           console.log('Submission was successful.');
           console.log(data);
           localStorage.setItem("x-auth-token", data.token);

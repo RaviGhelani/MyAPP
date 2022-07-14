@@ -101,9 +101,12 @@
                 data: frm.serialize(),
                 success: function (data) {
                     if ("x-auth-token" in localStorage) {
+                        debugger;
                         console.log('Submission was successful.');
                         console.log(data);
+                        $('.username').text(data);
                         window.location = "/"
+
                     } else {
                         alert('Not valid user...!');
                         window.location = "/api/users/logIn"

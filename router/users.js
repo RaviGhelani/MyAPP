@@ -81,7 +81,7 @@ router.post('/logIn', urlencodedParser, async function (req, res) {
 
     let userResponse = _.pick(user, ['_id', 'username', 'email', 'isAdmin']);
     userResponse["token"] = token;
-    res.header('x-auth-token', token).send(userResponse);
+    res.setHeader('x-auth-token', token).send(userResponse);
 
     console.log('Successfullu Login...!')
 

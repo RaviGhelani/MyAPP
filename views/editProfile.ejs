@@ -50,7 +50,7 @@
     <div class="container">
         <h1> Set Profile</h1>
 
-        <form class="form" id="profileform">
+        <form class="form" id="editprofileform">
 
             <div class="form-group">
                 <label for="username" class="form-label">UserName:</label>
@@ -87,7 +87,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <script type="text/javascript">
-        var frm = $('#profileform');
+        var frm = $('#editprofileform');
         token = localStorage["x-auth-token"]
 
         frm.submit(function (e) {
@@ -101,10 +101,12 @@
                 data: frm.serialize(),
                 success: function (data) {
                     if ("x-auth-token" in localStorage) {
+                        debugger;
                         console.log('Submission was successful.');
                         console.log(data);
                         window.location = "/"
                     } else {
+                        debugger;
                         alert('Not valid user...!');
                         window.location = "/api/users/logIn"
                     }

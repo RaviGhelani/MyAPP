@@ -21,16 +21,11 @@ router.get('/addProfile', async function (req, res) {
 });
 
 router.get('/', queryAuth, async function (req, res) {
-
-    let userId = req.user._id;
-    console.log("userId::::::", userId)
-
     res.render('profile', { title: "Profile Page" })
 });
 
-router.get('/me', urlencodedParser, auth, async function (req, res) {
-    // const user = await Profile.find({ userId: req.user._id });
-    // res.send(user);
+router.get('/me', urlencodedParser, queryAuth, async function (req, res) {
+
 });
 
 router.post('/', urlencodedParser, queryAuth, async function (req, res) {
@@ -67,7 +62,7 @@ router.post('/', urlencodedParser, queryAuth, async function (req, res) {
         userId: req.user._id,
     });
     await profile.save();
-    res.send(profile);
+    res.send(JSON.stringify(profile));
 
     console.log(profile);
 
@@ -95,26 +90,21 @@ router.put('/', queryAuth, async function (req, res) {
         return;
     }
 
-    let profile = await Profile.findOne({ userId: req.user._id });
-    if (!profile) return res.status(400).send('First you have to Add profile..!');
-
-    console.log(profile)
-
-    profile = await Profile.findByIdAndUpdate( req.user._id, {
+    let profile = await Profile.findOneAndUpdate({ userId: req.user._id }, {$set:{
         username: req.body.username,
         email: req.body.email,
         website: req.body.website,
         address: req.body.address,
         mobile_no: req.body.mobile_no,
         gender: req.body.gender,
-    }, { new: true });
+    }}, { new: true });
+
+    if (!profile) return res.status(400).send('First you have to Add profile..!');
 
     console.log(profile)
 
     await profile.save();
     res.send(profile);
-
-    console.log(profile);
 });
 
 router.delete('/:id', [auth, admin], async function (req, res) {
@@ -123,7 +113,6 @@ router.delete('/:id', [auth, admin], async function (req, res) {
     if (!user) {
         res.status(404).send("user not avalable");
     }
-
     res.send(user);
 });
 
