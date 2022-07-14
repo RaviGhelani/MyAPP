@@ -19,6 +19,12 @@ const http = require('http').createServer(app)
 
 const io = require('socket.io')(http)
 
+const PORT = process.env.PORT || 3000
+
+http.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`)
+})
+
 io.on('connection', (socket) => {
     console.log('Connected...')
     socket.on('message', (msg) => {
@@ -31,5 +37,5 @@ mongoose.connect('mongodb://localhost/MyAPP')
     .catch(err => console.log('Could not connected to mongoDb...', err))
 
 
-const port= process.env.PORT || 3000;
-app.listen(port, () => console.log(`listening to port Number ${port}...`));
+// const port= process.env.PORT || 3000;
+// app.listen(port, () => console.log(`listening to port Number ${port}...`));

@@ -46,7 +46,7 @@
         }
 
         .message_area {
-            height: 400px;
+            height: 300px;
             padding: 16px;
             display: flex;
             flex-direction: column;
@@ -95,8 +95,8 @@
 <body>
     <section class="chat_section">
         <div class="brand">
-            <img height="40" src="../public/download.png" alt="">
-            <h1>My chat</h1>
+            <img height="40" src="" alt="">
+            <h1 id="username">ravi</h1>
         </div>
 
         <div class="message_area"></div>
@@ -108,17 +108,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
 
-        const socket = io()
-        let name;
+        const socket = io("http://localhost:3000")
+        let name= ('#username');
         let textarea = document.querySelector('#textarea')
         let messageArea = document.querySelector('.message_area')
-        // do {
-        //     name = prompt('Please enter your name: ')
-        // } while(!name)
 
         textarea.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
                 sendMessage(e.target.value)
+                console.log('pressed')
             }
         })
 
@@ -157,9 +155,7 @@
         function scrollToBottom() {
             messageArea.scrollTop = messageArea.scrollHeight
         }
-
-
-
+        
     </script>
 </body>
 

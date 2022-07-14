@@ -3,12 +3,13 @@ const express = require('express')
 const router = express.Router();
 const queryAuth = require('../middleware/queryAuth')
 const bodyParser = require('body-parser')
-const { User } = require('../module/user')
+const { Profile } = require('../module/profile')
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', urlencodedParser, queryAuth, async function (req, res) {
-    res.render('chat')
+    let profile = await Profile.findOne({ userId: req.user._id })
+    res.render('chat', profile);
 });
 
 
