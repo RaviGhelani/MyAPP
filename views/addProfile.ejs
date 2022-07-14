@@ -89,7 +89,7 @@
     <script type="text/javascript">
         var frm = $('#profileform');
         token = localStorage["x-auth-token"]
-
+       
         frm.submit(function (e) {
             console.log("form submitted")
             e.preventDefault();
@@ -101,11 +101,9 @@
                 data: frm.serialize(),
                 success: function (data) {
                     if ("x-auth-token" in localStorage) {
-                        debugger;
                         console.log('Submission was successful.');
                         console.log(data);
                         window.location = "/"
-
                     } else {
                         alert('Not valid user...!');
                         window.location = "/api/users/logIn"

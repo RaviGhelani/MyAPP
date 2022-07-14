@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
     })
 })
 
-mongoose.connect('mongodb://localhost/MyAPP')
+mongoose.connect('mongodb://127.0.0.1:27017/MyAPP')
     .then(() => console.log('Connected To MongoDB...'))
     .catch(err => console.log('Could not connected to mongoDb...', err))
 

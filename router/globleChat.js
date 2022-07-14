@@ -9,7 +9,12 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', urlencodedParser, queryAuth, async function (req, res) {
     let profile = await Profile.findOne({ userId: req.user._id })
+    if(!profile){
+        res.render('addProfile');
+    }
+    else{
     res.render('chat', profile);
+    }
 });
 
 
