@@ -48,41 +48,47 @@
 
 <body>
     <div class="container">
-        <h1> </h1>
+        <h1> Profile Page </h1>
 
-        <form class="form" id="profileForm">
 
-            <div class="form-group">
-                <label for="username" class="form-label">UserName: <p id="username"><%= username%> </p></label>
-                
+        <table border="2">
 
-            </div>
-            <div class="form-group">
-                <label for="email" class="form-label">Email: <p id="email"><%= email %> </p></label>
-                
-            </div>
-            <div class="form-group">
-                <label for="mobile_no" class="form-label">Mobile_no: <p id="mobile_no"> <%= mobile_no %></p></label>
-                
-            </div>
-            <div class="form-group">
-                <label for="gender" class="form-label">Gender: <p id="gender"> </p></label>
-                
-            </div>
-            <div class="form-group">
-                <label for="address" class="form-label">Address: <p id="address"> </p></label>
-                
-            </div>
-            <div class="form-group">
-                <label for="website" class="form-label">WebSite: <p id="website"> </p></label>
-                
-            </div>
-        </form>
+            <tr>
+                <th> UserName: </th>
+                <td><%= username%></td>
+
+            </tr>
+
+            <tr>
+                <th>Email: </th>
+                <td><%= email %></td>
+            </tr>
+            <tr>
+                <th> Mobile_no: </th>
+                <td> <%= mobile_no%></td>
+
+            </tr>
+            <tr>
+                <th> Gender: </th>
+                <td><%= gender%></td>
+
+            </tr>
+            <tr>
+                <th> Address: </th>
+                <td><%= address%></td>
+
+            </tr>
+            <tr>
+                <th> WebSite: </th>
+                <td> <%= website%></td>
+
+            </tr>
+        </table>
         <br>
         <a href="/api/profiles/addProfile"> Add Profile </a>
         &nbsp; &nbsp; &nbsp; &nbsp;
         <a href="/api/profiles/editProfile"> Edit Profile </a>
-        
+
 
     </div>
 
@@ -90,24 +96,6 @@
 
     <script type="text/javascript">
 
-            token = localStorage["x-auth-token"]
-            $.ajax({
-                type: 'get',
-                url: '/api/profiles/me?token=${token}',
-                success: function (data) {
-                    if ("x-auth-token" in localStorage) {
-                        console.log(JSON.stringify(data));
-                        // window.location = "/"
-                    } else {
-                        alert('Not valid user...!');
-                        window.location = "/api/users/logIn"
-                    }
-                },
-                error: function (data) {
-                    console.log('An error occurred.');
-                    console.log(data);
-                },
-            });
     </script>
 
 </body>

@@ -22,19 +22,9 @@ router.get('/addProfile', async function (req, res) {
 
 router.get('/', queryAuth, async function (req, res) {
     let profile = await Profile.findOne({ userId: req.user._id })
-    console.log(profile)
-
     res.render('profile', profile);
 });
-// router.get('/me', urlencodedParser, queryAuth, async function (req, res) {
-//     let profile = await Profile.findOne({ userId: req.user._id })
-//     console.log(profile)
 
-//     res.render('profile', profile)
-
-//     // console.log(profile)
-//     // res.send(profile)
-// });
 
 router.post('/', urlencodedParser, queryAuth, async function (req, res) {
 
