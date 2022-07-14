@@ -21,12 +21,20 @@ router.get('/addProfile', async function (req, res) {
 });
 
 router.get('/', queryAuth, async function (req, res) {
-    res.render('profile', { title: "Profile Page" })
-});
+    let profile = await Profile.findOne({ userId: req.user._id })
+    console.log(profile)
 
-router.get('/me', urlencodedParser, queryAuth, async function (req, res) {
-
+    res.render('profile', profile);
 });
+// router.get('/me', urlencodedParser, queryAuth, async function (req, res) {
+//     let profile = await Profile.findOne({ userId: req.user._id })
+//     console.log(profile)
+
+//     res.render('profile', profile)
+
+//     // console.log(profile)
+//     // res.send(profile)
+// });
 
 router.post('/', urlencodedParser, queryAuth, async function (req, res) {
 
@@ -69,7 +77,7 @@ router.post('/', urlencodedParser, queryAuth, async function (req, res) {
 });
 
 
-router.put('/', queryAuth, async function (req, res) {
+router.put('/', urlencodedParser, queryAuth, async function (req, res) {
 
     const schema = Joi.object({
         username: Joi.string(),
@@ -90,14 +98,15 @@ router.put('/', queryAuth, async function (req, res) {
         return;
     }
 
-    let profile = await Profile.findOneAndUpdate({ userId: req.user._id }, {$set:{
+
+    let profile = await Profile.findOneAndUpdate({ userId: req.user._id }, {
         username: req.body.username,
         email: req.body.email,
         website: req.body.website,
         address: req.body.address,
         mobile_no: req.body.mobile_no,
         gender: req.body.gender,
-    }}, { new: true });
+    }, { new: true });
 
     if (!profile) return res.status(400).send('First you have to Add profile..!');
 
@@ -105,15 +114,6 @@ router.put('/', queryAuth, async function (req, res) {
 
     await profile.save();
     res.send(profile);
-});
-
-router.delete('/:id', [auth, admin], async function (req, res) {
-    const user = await User.findByIdAndRemove(req.params.id);
-
-    if (!user) {
-        res.status(404).send("user not avalable");
-    }
-    res.send(user);
 });
 
 
