@@ -294,7 +294,7 @@
             padding-top: 40px;
         }
 
-        textarea {
+        #textarea {
             width: 100%;
             border: none;
             padding: 20px;
@@ -319,6 +319,31 @@
             background: #e9eafd;
             color: #07091a;
             margin-left: auto;
+        }
+
+        #comment {
+            background-color: #d9b5ee;
+            width: 100%;
+            align-items: center;
+            border: 2px;
+            font-size: 15px;
+            word-break: break-all;
+            outline: none;
+        }
+
+        #like_button{
+            width: max-content;
+            background-color:rgb(62, 19, 129);
+            padding: 7%;
+            
+        }
+
+        .post_table{
+            
+        }
+
+        #post_head{
+           
         }
 
         /* .message h4 {
@@ -502,8 +527,21 @@
                 let className = type
                 mainDiv.classList.add(className, 'message')
 
-                let markup = `<h4>${msg.user}</h4> 
-                          <p>${msg.message}</p>`
+                let markup = `<table class="post_table">
+                    <tr id="post_head">
+                    <th><h3>${msg.user}</h3> </th>
+                    <th></th>
+                    </tr>
+                    <tr id="post_head">
+                    <td colspan = "2"><p>${msg.message}</p></td>
+                    <th></th>
+                    </tr>
+                    <tr id="post_head">
+                    <th><button id="like_button">like</button> </th>
+                    <th><textarea id="comment" placeholder="Enter comment here"></textarea></th>
+                    </tr>
+                    </table>
+                    `
                 mainDiv.innerHTML = markup
                 chatArea.appendChild(mainDiv)
             }
