@@ -110,11 +110,11 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
 
-        const socket = io("http://192.168.1.100:3000")
-        let name;
+        // const socket = io("http://localhost:3000")
+        
         let textarea = document.querySelector('#textarea')
         let messageArea = document.querySelector('.message_area')
-        name = document.getElementById("username").innerText
+        let name = document.getElementById("username").innerText
 
         textarea.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
@@ -150,10 +150,10 @@
         }
 
         // Recieve messages 
-        socket.on('message', (msg) => {
-            appendMessage(msg, 'incoming')
-            scrollToBottom()
-        })
+        // socket.on('message', (msg) => {
+        //     appendMessage(msg, 'incoming')
+        //     scrollToBottom()
+        // })
 
         function scrollToBottom() {
             messageArea.scrollTop = messageArea.scrollHeight

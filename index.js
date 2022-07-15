@@ -34,6 +34,10 @@ io.on('connection', (socket) => {
     })
 })
 
+io.on('disconnect', function () { //'disconnect is built in'
+    console.log('Disconnected from server');
+});
+
 mongoose.connect('mongodb://127.0.0.1:27017/MyAPP')
     .then(() => console.log('Connected To MongoDB...'))
     .catch(err => console.log('Could not connected to mongoDb...', err))
