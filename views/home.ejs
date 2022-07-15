@@ -47,7 +47,7 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        a{
+        a {
             color: rgb(62, 19, 129);
         }
 
@@ -65,58 +65,327 @@
         ul#ulists li {
             display: inline;
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 300;
+            font-size: .95rem;
+        }
+
+        ul,
+        li {
+            list-style-position: inside;
+        }
+
+        h3 {
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+
+        button {
+            border: none;
+            background: #265f82;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            transition: background .3s ease;
+        }
+
+        button:hover {
+            border: none;
+            background: #1F4C69;
+            color: white;
+            padding: 10px;
+        }
+
+        button:disabled {
+            cursor: default;
+            background: #698ea5;
+        }
+
+        .centered-form {
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            justify-content: center;
+            background: -moz-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* ff3.6+ */
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(49, 84, 129, 1)), color-stop(100%, rgba(39, 107, 130, 1)));
+            /* safari4+,chrome */
+            background: -webkit-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* safari5.1+,chrome10+ */
+            background: -o-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* opera 11.10+ */
+            background: -ms-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* ie10+ */
+            background: linear-gradient(325deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* w3c */
+        }
+
+        .centered-form__form {
+            background: rgba(250, 250, 250, 0.9);
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 0px 20px;
+            margin: 20px;
+            width: 230px;
+        }
+
+        .form-field {
+            margin: 20px 0;
+        }
+
+        .form-field>* {
+            width: 100%;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .form-field input,
+        .form-field select {
+            border: 1px solid #e1e1e1;
+            padding: 10px;
+        }
+
+        .chat {
+            display: flex;
+        }
+
+        .chat__sidebar {
+            overflow-y: scroll;
+            width: 260px;
+            height: 100vh;
+            background: -moz-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* ff3.6+ */
+            background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(49, 84, 129, 1)), color-stop(100%, rgba(39, 107, 130, 1)));
+            /* safari4+,chrome */
+            background: -webkit-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* safari5.1+,chrome10+ */
+            background: -o-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* opera 11.10+ */
+            background: -ms-linear-gradient(125deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* ie10+ */
+            background: linear-gradient(325deg, rgba(39, 107, 130, 1) 0%, rgba(49, 84, 129, 1) 100%);
+            /* w3c */
+        }
+
+        .chat__sidebar h3 {
+            color: #e6eaee;
+            margin: 10px 20px;
+            text-align: left;
+        }
+
+        .chat__sidebar ul {
+            list-style-type: none;
+        }
+
+        .chat__sidebar li {
+            background: #e6eaee;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .chat__main {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .chat__messages {
+            flex-grow: 1;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .chat__footer {
+            background: #e6eaee;
+            display: flex;
+            padding: 10px;
+            /*height: 60px;*/
+            flex-shrink: 0;
+        }
+
+        .chat__footer form {
+            flex-grow: 1;
+            display: flex;
+        }
+
+        .chat__footer form * {
+            margin-right: 10px;
+        }
+
+        .chat__footer input {
+            border: none;
+            padding: 10px;
+            flex-grow: 1;
+        }
+
+        .chat__messages {
+            list-style-type: none;
+            padding: 10px;
+        }
+
+        .message {
+            padding: 10px;
+        }
+
+        .message__title {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .message__title h4 {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .message__title span {
+            color: #999;
+        }
+
+        @media (max-width: 600px) {
+            * {
+                font-size: 1rem;
+            }
+
+            .chat__sidebar {
+                display: none;
+            }
+
+            .chat__footer {
+                flex-direction: column;
+            }
+
+            .chat__footer form {
+                margin-bottom: 10px;
+            }
+
+            .chat__footer button {
+                margin-right: 0px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="parent">
         <div class="child">
-             <img height="60" src="data:image/png;base64,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" alt="">
-            
-                <ul id="ulists">
-                    <li id="lists"> <a id="home"> Home </a> </li>  &nbsp; &nbsp;
-                    <li id="lists"> <a id="chat"> Globle_Chat </a> </li> &nbsp; &nbsp;
-                    <li id="lists"> <a id="profile"> Profile </a> </li> &nbsp; &nbsp;
-                    <li id="lists"> <a id="logOut"> LogOut </a> </li> &nbsp; &nbsp;
-                </ul>
-            
+            <img height="60"
+                src="data:image/png;base64,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"
+                alt="">
+
+            <ul id="ulists">
+                <li id="lists"> <a id="home"> Home </a> </li> &nbsp; &nbsp;
+                <li id="lists"> <a id="chat"> Globle_Chat </a> </li> &nbsp; &nbsp;
+                <li id="lists"> <a id="profile"> Profile </a> </li> &nbsp; &nbsp;
+                <li id="lists"> <a id="logOut"> LogOut </a> </li> &nbsp; &nbsp;
+            </ul>
+
         </div>
         <div class="main">
-           
-            <div class="child content" id="content">This is Home Page</div>
+
+            <div class="child content" id="content">
+
+                <div class="chat">
+                    <div class="chat__sidebar">
+                        <!-- <h3>Chat Room:</h3>
+                    <div id="roomname"></div>
+                    <h3> </h3> -->
+                        <h3>People:</h3>
+                        <div id="users"></div>
+                    </div>
+
+                    <div class="chat__main">
+
+                        <dl id="messagelist" class="chat__messages"></dl>
+
+                        <div class="chat__footer">
+                            <form id="message-form">
+                                <input name="message" type="text" placeholder="Enter Message here" autofocus
+                                    autocomplete="off" />
+                                <button>Send</button>
+                                <button>Upload Image</button>
+                            </form>
+                            <!-- <button id="send-location">Send location</button> -->
+                        </div>
+                    </div>
+
+
+                    <script id="messagelist-template" type="text/template">
+                    <dd class="messages">
+                      <div class="message__title">
+                        <h4>{{from}}</h4>
+                        <span>{{createdAt}}</span>
+                      </div>
+                      <div class="message__body">
+                        <p>{{Image}}</p> <br>
+                        <p>{{text}}</p> <br>
+                        <button>Like</button>
+                      </div>
+                    </dd>
+                  </script>
+
+
+                    <!-- <script id="location-messagelist-template" type="text/template">
+                    <dd class="messages">
+                      <div class="message__title">
+                        <h4>{{from}}</h4>
+                        <span>{{createdAt}}</span>
+                      </div>
+                      <div class="message__body">
+                        <a href="{{url}}" target="_blank">My current location</a>
+                      </div>
+                    </dd>
+                  </script> -->
+
+                </div>
+            </div>
         </div>
-        <div class="child"></div>
+        <!-- <div class="child"></div>
+    </div> -->
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+        <script>
+            let token;
+            if ("x-auth-token" in localStorage) {
+                token = localStorage["x-auth-token"]
+                console.log('User already logIn!')
+            } else {
+                alert('you have to login first...!');
+                window.location = "/api/users/logIn"
+            }
+
+            $(document).ready(function () {
+                $("#home").click(function () {
+                    $("#content").load(`/api/post?token=${token}`);
+                });
+                $("#profile").click(function () {
+                    $("#content").load(`/api/profiles?token=${token}`);
+                });
+                $("#chat").click(function () {
+                    $("#content").load(`/api/chats?token=${token}`);
+                });
+                $("#logOut").click(function () {
+                    window.location = "/api/users/logIn";
+                    window.localStorage.removeItem("x-auth-token");
+                });
+            });
+        </script>
+
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-    <script>
-        let token;
-        if ("x-auth-token" in localStorage) {
-            token = localStorage["x-auth-token"]
-            console.log('User already logIn!')
-        } else {
-            alert('you have to login first...!');
-            window.location = "/api/users/logIn"
-        }
-
-        $(document).ready(function () {
-            $("#home").click(function () {
-                $("#content").load(`/api/profiles?token=${token}`);
-            });
-            $("#profile").click(function () {
-                $("#content").load(`/api/profiles?token=${token}`);
-            });
-            $("#chat").click(function () {
-                $("#content").load(`/api/chats?token=${token}`);
-            });
-            $("#logOut").click(function () {
-                window.location = "/api/users/logIn";
-                window.localStorage.removeItem("x-auth-token");
-            });
-        });
-    </script>
-
 
 </body>
 
