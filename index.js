@@ -4,6 +4,7 @@ const users = require('./router/users')
 const home = require('./router/home')
 const profile = require('./router/profiles')
 const chat = require('./router/globleChat')
+const post = require('./router/post')
 
 const express = require('express')
 const app = express();
@@ -14,6 +15,7 @@ app.use('/api/users', users)
 app.use('/', home)
 app.use('/api/profiles', profile)
 app.use('/api/chats', chat)
+app.use('/api/post', post)
 
 const http = require('http').createServer(app)
 
