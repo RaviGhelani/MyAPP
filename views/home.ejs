@@ -336,13 +336,15 @@
             padding-left: 10px;
         }
 
-        #like_button {
+        #like_button,
+        #dislike_button {
             width: 80px;
             height: 35px;
             background-color: rgb(62, 19, 129);
             padding: 7%;
 
         }
+
 
         .post_table {}
 
@@ -429,11 +431,6 @@
 
                         </div>
                     </div>
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -441,6 +438,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
+
         <script>
             let token;
             if ("x-auth-token" in localStorage) {
@@ -467,14 +465,15 @@
                 });
             });
         </script>
+
         <script type="text/javascript">
 
             const socket = io("http://localhost:3000")
             socket.emit('postList')
 
-           
 
-            // let send= jQuery('#send')
+
+            let send = jQuery('#send')
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes()
             let input = document.querySelector('#input')
@@ -496,8 +495,8 @@
                     userId: userId,
                     message: message.trim()
                 }
-                // Append 
-                appendMessage(msg, 'outgoing')
+                // // Append 
+                // appendMessage(msg, 'outgoing')
                 input.value = ''
                 scrollToBottom()
 
@@ -517,8 +516,8 @@
                     </form>
                     <table>
                     <tr id="post_head">
-                    <th><button id="like_button">like</button> &nbsp</th>
-                    <th><button id="like_button">dislike</button> &nbsp</th>
+                    <th><button id="like_button" onclick="likeClick('${msg._id}')">like</button> &nbsp</th>
+                    <th><button id="dislike_button">dislike</button> &nbsp</th>
                     <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
                     </tr>
                     </table>
@@ -526,6 +525,11 @@
 
                 mainDiv.innerHTML = markup
                 chatArea.appendChild(mainDiv)
+            }
+
+            function likeClick(postId) {
+                let userId = localStorage["userId"]
+                socket.emit('likeClick', userId, postId)
             }
 
             socket.on('postList', (msg) => {

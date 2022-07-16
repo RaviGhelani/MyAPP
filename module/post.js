@@ -7,11 +7,7 @@ const postSchema = new mongoose.Schema({
         ref: 'User'
     },
     message: String,
-    like: [
-        {
-            liker_Id: mongoose.Schema.Types.ObjectId,
-        }
-    ],
+    like: [ mongoose.Schema.Types.ObjectId],
     comment: [
         {
         commenter_Id: mongoose.Schema.Types.ObjectId,

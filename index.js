@@ -35,11 +35,15 @@ io.on('connection', (socket) => {
     })
     socket.on("addPost", async post => {
         let newPost = await postController.addPost(post)
-        socket.broadcast.emit("newPost", newPost)
+        io.emit("newPost", newPost)
     });
     socket.on("postList", async () => {
         let newPost = await postController.getAllPost()
         socket.emit("postList", newPost)
+    });
+    socket.on("likeClick", async (userId, postId) => {
+        let newPost = await postController.likePost(userId, postId)
+        socket.emit("like", newPost)
     });
 })
 
