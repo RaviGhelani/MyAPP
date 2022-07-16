@@ -5,6 +5,7 @@ const home = require('./router/home')
 const profile = require('./router/profiles')
 const chat = require('./router/globleChat')
 const post = require('./router/post')
+const postController = require('./controller/postController')
 
 const express = require('express')
 const app = express();
@@ -32,9 +33,18 @@ io.on('connection', (socket) => {
     socket.on('message', (msg) => {
         socket.broadcast.emit('message', msg)
     })
+    socket.on("addPost", async post => {
+        let newPost = await postController.addPost(post)
+        socket.broadcast.emit("newPost", newPost)
+    });
+    socket.on("postList", async () => {
+        let newPost = await postController.getAllPost()
+        socket.broadcast.emit("postList", newPost)
+        console.log(newPost)
+    });
 })
 
-io.on('disconnect', function () { //'disconnect is built in'
+io.on('disconnect', function () { 
     console.log('Disconnected from server');
 });
 

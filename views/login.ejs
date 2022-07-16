@@ -75,6 +75,8 @@
           console.log('Submission was successful.');
           console.log(data);
           localStorage.setItem("x-auth-token", data.token);
+          localStorage.setItem("userId", data._id);
+
           window.location= "/"
         },
         error: function (data) {

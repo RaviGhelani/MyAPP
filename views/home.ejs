@@ -331,19 +331,25 @@
             outline: none;
         }
 
-        #like_button{
-            width: max-content;
-            background-color:rgb(62, 19, 129);
+        #comment_width{
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        #like_button {
+            width: 80px;
+            height: 35px;
+            background-color: rgb(62, 19, 129);
             padding: 7%;
-            
+
         }
 
-        .post_table{
-            
-        }
+        .post_table {}
 
-        #post_head{
-           
+        #post_head {}
+
+        #input {
+            width: 100%;
         }
 
         /* .message h4 {
@@ -415,8 +421,8 @@
 
                         <div class="chat__footer">
                             <form id="message-form">
-                                <textarea id="input" cols="40" name="message" type="text"
-                                    placeholder="Enter Message here" autofocus autocomplete="off"> </textarea>
+                                <textarea id="input" name="message" type="text" placeholder="Enter Message here"
+                                    autofocus autocomplete="off"> </textarea>
                                 <button id="send">Send</button>
                                 <button>Upload Image</button>
                             </form>
@@ -424,38 +430,13 @@
                         </div>
                     </div>
 
-                    <!-- <script id="messagelist-template" type="text/template">
-                    <dd class="messages">
-                      <div class="message__title">
-                        
-                        <span id="time"></span>
-                      </div>
-                      <div class="message__body">
-                        <p>{{Image}}</p> <br>
-                        <p>{{text}}</p> <br>
-                        <button>Like</button>
-                      </div>
-                    </dd>
-                  </script> -->
 
 
-                    <!-- <script id="location-messagelist-template" type="text/template">
-                    <dd class="messages">
-                      <div class="message__title">
-                        <h4>{{from}}</h4>
-                        <span>{{createdAt}}</span>
-                      </div>
-                      <div class="message__body">
-                        <a href="{{url}}" target="_blank">My current location</a>
-                      </div>
-                    </dd>
-                  </script> -->
+
 
                 </div>
             </div>
         </div>
-        <!-- <div class="child"></div>
-    </div> -->
 
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
@@ -489,16 +470,21 @@
         <script type="text/javascript">
 
             const socket = io("http://localhost:3000")
+            socket.emit('postList')
 
-            // let name = "Ravi";
-            // let today = new Date();
-            // let time = today.getHours() + ":" + today.getMinutes();
-            // let textarea = document.querySelector('#textarea')
-            // let messagelist = document.querySelector('.chat__messages')
+            socket.on('postList', postlist => {
+                for (let i = 0; i < postlist.length; i++) {
 
+                }
+            })
+
+            // let send= jQuery('#send')
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes()
             let input = document.querySelector('#input')
             let chatArea = document.querySelector('.chat__messages')
             let username = "Ravi"
+
 
             input.addEventListener('keyup', (e) => {
                 if (e.key === 'Enter') {
@@ -508,8 +494,9 @@
             })
 
             function sendMessage(message) {
+                let userId = localStorage.getItem("userId")
                 let msg = {
-                    user: username,
+                    userId: userId,
                     message: message.trim()
                 }
                 // Append 
@@ -518,8 +505,7 @@
                 scrollToBottom()
 
                 // Send to server 
-                socket.emit('message', msg)
-
+                socket.emit('addPost', msg)
             }
 
             function appendMessage(msg, type) {
@@ -527,35 +513,41 @@
                 let className = type
                 mainDiv.classList.add(className, 'message')
 
-                let markup = `<table class="post_table">
+                let markup = `<form id="post_form">
+                    
+                    <h4 align="left">${msg.user} &nbsp &nbsp &nbsp ${time}</h4>
+                    <p id="post_message">${msg.message}</p>
+                    </form>
+                    <table>
                     <tr id="post_head">
-                    <th><h3>${msg.user}</h3> </th>
-                    <th></th>
-                    </tr>
-                    <tr id="post_head">
-                    <td colspan = "2"><p>${msg.message}</p></td>
-                    <th></th>
-                    </tr>
-                    <tr id="post_head">
-                    <th><button id="like_button">like</button> </th>
-                    <th><textarea id="comment" placeholder="Enter comment here"></textarea></th>
+                    <th><button id="like_button">like</button> &nbsp</th>
+                    <th><button id="like_button">dislike</button> &nbsp</th>
+                    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
                     </tr>
                     </table>
                     `
+
                 mainDiv.innerHTML = markup
                 chatArea.appendChild(mainDiv)
             }
 
+            socket.on('postList', () => {
+                appendMessage(msg, 'incoming')
+                console.log(mag)
+                scrollToBottom()
+            })
+
             // Recieve messages 
-            socket.on('message', (msg) => {
+            socket.on('newPost', (msg) => {
                 appendMessage(msg, 'incoming')
                 scrollToBottom()
             })
 
+            
+
             function scrollToBottom() {
                 chatArea.scrollTop = chatArea.scrollHeight
             }
-
 
         </script>
 
