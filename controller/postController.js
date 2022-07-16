@@ -16,7 +16,6 @@ async function getAllPost() {
     for (let i = 0; i < allPost.length; i++) {
         allPost[i]["likeCount"] = allPost[i].like.length;
     }
-
     return allPost;
 }
 
@@ -29,10 +28,6 @@ async function likePost(userId, postId) {
             }
         })
     console.log(like);
-
-    let allLike = await Post.findById({ _id: postId })
-    likeCount = allLike.length;
-    console.log("likeCount", likeCount)
 }
 
 
