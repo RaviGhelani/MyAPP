@@ -536,7 +536,7 @@
                 for (let i = 0; i < msg.length; i++) {
                     appendMessage(msg[i], 'incoming');
                     console.log(msg[i].likeCount)
-                    document.getElementsByClassName("likeCount").innerHTML = "4";
+                    document.getElementsByClassName("likeCount").innerHTML = msg[i].likeCount;
                 }
                 scrollToBottom()
             }) 
