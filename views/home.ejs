@@ -331,7 +331,7 @@
             outline: none;
         }
 
-        #comment_width{
+        #comment_width {
             width: 100%;
             padding-left: 10px;
         }
@@ -472,11 +472,7 @@
             const socket = io("http://localhost:3000")
             socket.emit('postList')
 
-            socket.on('postList', postlist => {
-                for (let i = 0; i < postlist.length; i++) {
-
-                }
-            })
+           
 
             // let send= jQuery('#send')
             var today = new Date();
@@ -496,6 +492,7 @@
             function sendMessage(message) {
                 let userId = localStorage.getItem("userId")
                 let msg = {
+                    user: username,
                     userId: userId,
                     message: message.trim()
                 }
@@ -531,19 +528,24 @@
                 chatArea.appendChild(mainDiv)
             }
 
-            socket.on('postList', () => {
-                appendMessage(msg, 'incoming')
-                console.log(mag)
+            socket.on('postList', (msg) => {
+                for (let i = 0; i < msg.length; i++) {
+                    appendMessage(msg, 'incoming') 
+                    // console.log(msg)
+                }
                 scrollToBottom()
+                console.log(msg)
+
             })
 
             // Recieve messages 
             socket.on('newPost', (msg) => {
                 appendMessage(msg, 'incoming')
+                console.log(msg)
                 scrollToBottom()
             })
 
-            
+
 
             function scrollToBottom() {
                 chatArea.scrollTop = chatArea.scrollHeight

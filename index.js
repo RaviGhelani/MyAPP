@@ -39,8 +39,7 @@ io.on('connection', (socket) => {
     });
     socket.on("postList", async () => {
         let newPost = await postController.getAllPost()
-        socket.broadcast.emit("postList", newPost)
-        console.log(newPost)
+        socket.emit("postList", newPost)
     });
 })
 
