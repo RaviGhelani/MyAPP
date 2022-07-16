@@ -530,12 +530,9 @@
 
             socket.on('postList', (msg) => {
                 for (let i = 0; i < msg.length; i++) {
-                    appendMessage(msg, 'incoming') 
-                    // console.log(msg)
+                    appendMessage(msg[i], 'incoming');
                 }
                 scrollToBottom()
-                console.log(msg)
-
             })
 
             // Recieve messages 
