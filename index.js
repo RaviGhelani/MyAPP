@@ -45,6 +45,10 @@ io.on('connection', (socket) => {
         let newPost = await postController.likePost(userId, postId)
         socket.emit("like", newPost)
     });
+    socket.on("dislikeClick", async (userId, postId) => {
+        let newPost = await postController.dislikePost(userId, postId)
+        socket.emit("dislike", newPost)
+    });
 })
 
 io.on('disconnect', function () { 

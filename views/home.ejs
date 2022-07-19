@@ -512,16 +512,16 @@
                 let markup = `<form id="post_form">
                     
                     <h4 align="left">${msg.user} &nbsp &nbsp &nbsp ${time}</h4>
-                    <p id="post_message">${msg.message}</p>
-                    </form>
-                    <table>
-                    <tr id="post_head">
-                    <th><button id="like_button" onclick="likeClick('${msg._id}')">like<b class="likeCount"><b></button> &nbsp</th>
-                    <th><button id="dislike_button">dislike</button> &nbsp</th>
-                    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
-                    </tr>
-                    </table>
-                    `
+    <p id="post_message">${msg.message}</p>
+    </form>
+    <table>
+    <tr id="post_head">
+    <th><button id="like_button" onclick="likeClick('${msg._id}')">like${msg.likeCount}</button>&nbsp</th>
+    <th><button id="like_button" onclick="dislikeClick('${msg._id}')">dislike${msg.dislikeCount}</button> &nbsp</th>
+    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
+    </tr>
+    </table>
+    `
 
                 mainDiv.innerHTML = markup
                 chatArea.appendChild(mainDiv)
@@ -530,16 +530,27 @@
             function likeClick(postId) {
                 let userId = localStorage["userId"]
                 socket.emit('likeClick', userId, postId)
+                window.location.reload()
             }
 
-            socket.on('postList', (msg) => {
-                for (let i = 0; i < msg.length; i++) {
-                    appendMessage(msg[i], 'incoming');
-                    console.log(msg[i].likeCount)
-                    document.getElementsByClassName("likeCount").innerHTML = msg[i].likeCount;
-                }
-                scrollToBottom()
-            }) 
+            function dislikeClick(postId) {
+                let userId = localStorage["userId"]
+                socket.emit('dislikeClick', userId, postId)
+                window.location.reload()
+            }
+
+             // function newComment(postId) {
+        //     let userId = localStorage["userId"]
+        //     socket.emit('newComment', userId, postId)
+        //     window.location.reload()
+        // }
+
+        socket.on('postList', (msg) => {
+            for (let i = 0; i < msg.length; i++) {
+                appendMessage(msg[i], 'incoming');
+            }
+            scrollToBottom()
+        })
 
             // Recieve messages 
             socket.on('newPost', (msg) => {

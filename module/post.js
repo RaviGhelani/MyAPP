@@ -8,6 +8,7 @@ const postSchema = new mongoose.Schema({
     },
     message: String,
     like: [ mongoose.Schema.Types.ObjectId],
+    dislike: [ mongoose.Schema.Types.ObjectId],
     comment: [
         {
         commenter_Id: mongoose.Schema.Types.ObjectId,
