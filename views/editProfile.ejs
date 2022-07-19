@@ -94,19 +94,18 @@
             console.log("form submitted")
             e.preventDefault();
             let formData = frm.serialize();
-            console.log('form data', formData)
+            console.log(formData)
+            
             $.ajax({
                 type: 'put',
-                url: `/api/profiles/?token=${token}`,
+                url: `/api/profiles?token=${token}`,
                 data: frm.serialize(),
                 success: function (data) {
                     if ("x-auth-token" in localStorage) {
-                        debugger;
                         console.log('Submission was successful.');
-                        console.log(JSON.stringify(data));
+                        console.log(data);
                         window.location = "/"
                     } else {
-                        debugger;
                         alert('Not valid user...!');
                         window.location = "/api/users/logIn"
                     }
