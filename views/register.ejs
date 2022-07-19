@@ -73,7 +73,7 @@
                     data: frm.serialize(),
                     success: function (data) {
                         console.log('Submission was successful.');
-                        // localStorage.setItem("x-auth-token", data.token);
+                        localStorage.setItem("username", data.username);
                         console.log(data);
                         window.location= "/api/users/logIn"
                     },

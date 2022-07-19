@@ -469,16 +469,16 @@
         <script type="text/javascript">
 
             const socket = io("http://localhost:3000")
+
             socket.emit('postList')
-
-
 
             let send = jQuery('#send')
             var today = new Date();
             var time = today.getHours() + ":" + today.getMinutes()
+            var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+            var dateTime = date + ' ' + time;
             let input = document.querySelector('#input')
             let chatArea = document.querySelector('.chat__messages')
-            let username = "Ravi"
 
 
             input.addEventListener('keyup', (e) => {
@@ -490,9 +490,11 @@
 
             function sendMessage(message) {
                 let userId = localStorage.getItem("userId")
+                let username = localStorage.getItem("username")
                 let msg = {
-                    user: username,
+                    username: username,
                     userId: userId,
+                    dateTime: dateTime,
                     message: message.trim()
                 }
                 // // Append 
@@ -508,20 +510,21 @@
                 let mainDiv = document.createElement('div')
                 let className = type
                 mainDiv.classList.add(className, 'message')
+                
 
                 let markup = `<form id="post_form">
                     
-                    <h4 align="left">${msg.user} &nbsp &nbsp &nbsp ${time}</h4>
-    <p id="post_message">${msg.message}</p>
-    </form>
-    <table>
-    <tr id="post_head">
-    <th><button id="like_button" onclick="likeClick('${msg._id}')">like${msg.likeCount}</button>&nbsp</th>
-    <th><button id="like_button" onclick="dislikeClick('${msg._id}')">dislike${msg.dislikeCount}</button> &nbsp</th>
-    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
-    </tr>
-    </table>
-    `
+                    <h4 align="left">${msg.username} &nbsp &nbsp &nbsp ${msg.dateTime}</h4>
+                    <p id="post_message">${msg.message}</p>
+                    </form>
+                    <table>
+                    <tr id="post_head">
+                    <th><button id="like_button" onclick="likeClick('${msg._id}')">like${msg.likeCount}</button>&nbsp</th>
+                    <th><button id="like_button" onclick="dislikeClick('${msg._id}')">dislike${msg.dislikeCount}</button> &nbsp</th>
+                    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
+                    </tr>
+                    </table>
+                    `
 
                 mainDiv.innerHTML = markup
                 chatArea.appendChild(mainDiv)
@@ -539,18 +542,18 @@
                 window.location.reload()
             }
 
-             // function newComment(postId) {
-        //     let userId = localStorage["userId"]
-        //     socket.emit('newComment', userId, postId)
-        //     window.location.reload()
-        // }
+            // function newComment(postId) {
+            //     let userId = localStorage["userId"]
+            //     socket.emit('newComment', userId, postId)
+            //     window.location.reload()
+            // }
 
-        socket.on('postList', (msg) => {
-            for (let i = 0; i < msg.length; i++) {
-                appendMessage(msg[i], 'incoming');
-            }
-            scrollToBottom()
-        })
+            socket.on('postList', (msg) => {
+                for (let i = 0; i < msg.length; i++) {
+                    appendMessage(msg[i], 'incoming');
+                }
+                scrollToBottom()
+            })
 
             // Recieve messages 
             socket.on('newPost', (msg) => {
@@ -558,8 +561,6 @@
                 console.log(msg)
                 scrollToBottom()
             })
-
-
 
             function scrollToBottom() {
                 chatArea.scrollTop = chatArea.scrollHeight

@@ -6,6 +6,8 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    dateTime: String,
+    username: String,
     message: String,
     like: [ mongoose.Schema.Types.ObjectId],
     dislike: [ mongoose.Schema.Types.ObjectId],

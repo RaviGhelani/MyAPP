@@ -1,5 +1,3 @@
-const auth = require('../middleware/auth')
-const admin = require('../middleware/admin')
 const bcrypt = require('bcrypt')
 const express = require('express')
 const _ = require('lodash')

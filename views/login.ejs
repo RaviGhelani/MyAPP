@@ -68,7 +68,7 @@
       console.log(formData)
       $.ajax({
         type: 'post',
-        url: '/api/users/logIn',
+        url: frm.attr('/api/users/logIn'),
         data: frm.serialize(),
         success: function (data) {
           

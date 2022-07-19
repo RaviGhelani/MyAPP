@@ -15,7 +15,7 @@ router.get('/', urlencodedParser, async function (req, res) {
 
 router.post('/', urlencodedParser, queryAuth, async function (req, res) {
 
-    console.log(req.body.message)
+    console.log(req.body.date)
 
     const schema = Joi.object({
         message: Joi.string(),

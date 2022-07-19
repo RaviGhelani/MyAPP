@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
     })
     socket.on("addPost", async post => {
         let newPost = await postController.addPost(post)
+        // console.log(post)
         io.emit("newPost", newPost)
     });
     socket.on("postList", async () => {
