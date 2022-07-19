@@ -425,7 +425,7 @@
                             <form id="message-form">
                                 <textarea id="input" name="message" type="text" placeholder="Enter Message here"
                                     autofocus autocomplete="off"> </textarea>
-                                <button id="send">Send</button>
+                                <button id="send" onclick="postSend($('#input').val());">Send</button>
                                 <button>Upload Image</button>
                             </form>
 
@@ -477,16 +477,21 @@
             var time = today.getHours() + ":" + today.getMinutes()
             var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
             var dateTime = date + ' ' + time;
-            let input = document.querySelector('#input')
             let chatArea = document.querySelector('.chat__messages')
+            let comment = document.querySelector('#comment')
 
 
-            input.addEventListener('keyup', (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage(e.target.value)
-                    console.log('pressed')
-                }
-            })
+            function postSend(postmessage) {
+                sendMessage(postmessage)
+                console.log('pressed')
+            }
+
+            // input.addEventListener('keyup', (e) => {
+            //     if (e.key === 'Enter') {
+            //         sendMessage(e.target.value)
+            //         console.log('pressed')
+            //     }
+            // })
 
             function sendMessage(message) {
                 let userId = localStorage.getItem("userId")
@@ -510,7 +515,7 @@
                 let mainDiv = document.createElement('div')
                 let className = type
                 mainDiv.classList.add(className, 'message')
-                
+
 
                 let markup = `<form id="post_form">
                     
@@ -521,7 +526,7 @@
                     <tr id="post_head">
                     <th><button id="like_button" onclick="likeClick('${msg._id}')">like${msg.likeCount}</button>&nbsp</th>
                     <th><button id="like_button" onclick="dislikeClick('${msg._id}')">dislike${msg.dislikeCount}</button> &nbsp</th>
-                    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea></th>
+                    <th id="comment_width"><textarea id="comment" placeholder="Enter comment here"></textarea> <button id="comment_button" onclick="commentSend($('#comment').val(), '${msg._id}');">send</button></th>
                     </tr>
                     </table>
                     `
@@ -542,11 +547,12 @@
                 window.location.reload()
             }
 
-            // function newComment(postId) {
-            //     let userId = localStorage["userId"]
-            //     socket.emit('newComment', userId, postId)
-            //     window.location.reload()
-            // }
+            function commentSend(commentMessage, postId) {
+                let userId = localStorage["userId"]
+                socket.emit('newComment', commentMessage, userId, postId)
+                // $("#comment").val("") = '';
+                // window.location.reload()
+            }
 
             socket.on('postList', (msg) => {
                 for (let i = 0; i < msg.length; i++) {

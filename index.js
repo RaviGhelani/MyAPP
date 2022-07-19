@@ -50,6 +50,10 @@ io.on('connection', (socket) => {
         let newPost = await postController.dislikePost(userId, postId)
         socket.emit("dislike", newPost)
     });
+    socket.on("newComment", async (commentMessage, userId, postId) => {
+        let newPost = await postController.addComment(commentMessage, userId, postId)
+        // socket.emit("dislike", newPost)
+    });
 })
 
 io.on('disconnect', function () { 

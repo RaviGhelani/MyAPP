@@ -17,15 +17,6 @@ async function getAllPost() {
     return allPost;
 }
 
-async function likeCount() {
-    let likeCount = await Post.find().lean();
-    for (let i = 0; i < allPost.length; i++) {
-        allPost[i]["likeCount"] = allPost[i].like.length;
-
-    }
-    return likeCount;
-
-}
 async function likePost(userId, postId) {
     let like = await Post.updateOne(
         { _id: postId, like: { $nin: userId } },
@@ -51,18 +42,18 @@ async function dislikePost(userId, postId) {
         })
 }
 
-async function newComment(userId, postId) {
-    let comment = await Post.updateOne(
-        { _id: postId, like: { $nin: userId } },
+async function addComment(commentMessage, userId, postId) {
+    let newcomment = await Post.updateOne(
+        { _id: postId },
         {
             $push: {
-                comment: userId
+                comment: [{
+                    commenter_Id: userId,
+                    message: commentMessage
+                }]
             },
-            // $pull: {
-            //     dislike: userId
-            // }
         })
-    console.log(comment);
+    console.log(newcomment);
 }
 
 module.exports = {
@@ -70,5 +61,5 @@ module.exports = {
     getAllPost: getAllPost,
     likePost: likePost,
     dislikePost: dislikePost,
-    newComment: newComment
+    addComment: addComment
 }
